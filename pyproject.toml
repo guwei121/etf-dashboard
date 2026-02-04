@@ -1,0 +1,169 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "etf-investment-dashboard"
+version = "1.0.0"
+description = "基于规则的ETF投资决策支持系统"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "ETF Dashboard Team", email = "team@etfdashboard.com"}
+]
+maintainers = [
+    {name = "ETF Dashboard Team", email = "team@etfdashboard.com"}
+]
+keywords = ["etf", "investment", "dashboard", "finance", "technical-analysis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "pandas>=1.5.0",
+    "numpy>=1.21.0",
+    "akshare>=1.9.0",
+    "requests>=2.28.0",
+    "scipy>=1.9.0",
+    "streamlit>=1.28.0",
+    "plotly>=5.15.0",
+    "altair>=4.2.0",
+    "matplotlib>=3.6.0",
+    "seaborn>=0.11.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=0.19.0",
+    "python-dateutil>=2.8.0",
+    "httpx>=0.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "hypothesis>=6.68.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=0.991",
+    "jupyter>=1.0.0",
+    "ipython>=8.0.0",
+]
+optional = [
+    "ta-lib>=0.4.25",
+    "numba>=0.56.0",
+    "diskcache>=5.4.0",
+]
+
+[project.scripts]
+etf-dashboard = "etf_dashboard.main:main"
+
+[project.urls]
+Homepage = "https://github.com/etf-dashboard/etf-investment-dashboard"
+Documentation = "https://etf-dashboard.readthedocs.io/"
+Repository = "https://github.com/etf-dashboard/etf-investment-dashboard"
+"Bug Tracker" = "https://github.com/etf-dashboard/etf-investment-dashboard/issues"
+
+[tool.setuptools]
+packages = ["etf_dashboard"]
+
+[tool.setuptools.package-data]
+etf_dashboard = ["config/*.json", "templates/*.html", "static/*"]
+
+# Black代码格式化配置
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# isort导入排序配置
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["etf_dashboard"]
+
+# MyPy类型检查配置
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "akshare.*",
+    "ta.*",
+    "streamlit.*",
+    "plotly.*",
+    "altair.*",
+]
+ignore_missing_imports = true
+
+# Pytest配置
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "property: marks tests as property-based tests",
+]
+
+# Coverage配置
+[tool.coverage.run]
+source = ["etf_dashboard"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
