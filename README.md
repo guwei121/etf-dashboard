@@ -304,10 +304,10 @@ docker-compose up -d
 
 ## 📞 支持与联系
 
-- 🐛 **Bug报告**: [提交Issue](https://github.com/your-username/etf-dashboard/issues)
-- 💡 **功能建议**: [功能请求](https://github.com/your-username/etf-dashboard/issues)
-- 📧 **邮件联系**: your-email@example.com
-- 💬 **讨论交流**: [Discussions](https://github.com/your-username/etf-dashboard/discussions)
+- 🐛 **Bug报告**: [提交Issue](https://github.com/guwei121/etf-dashboard/issues)
+- 💡 **功能建议**: [功能请求](https://github.com/guwei121/etf-dashboard/issues)
+- 📧 **邮件联系**: cuuve0326@gmail.com
+- 💬 **讨论交流**: [Discussions](https://github.com/guwei121/etf-dashboard/discussions)
 
 ## 🎉 致谢
 
